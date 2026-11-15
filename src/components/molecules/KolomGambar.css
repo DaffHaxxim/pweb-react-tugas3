@@ -1,0 +1,26 @@
+.kolom-gambar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kolom-gambar__pratinjau {
+  flex: none;
+  width: 120px;
+}
+
+.kolom-gambar__aksi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Input file asli disembunyikan; dibuka lewat tombol bertema. Tetap terbaca pembaca layar. */
+.kolom-gambar__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}

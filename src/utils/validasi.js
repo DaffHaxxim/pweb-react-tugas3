@@ -6,7 +6,7 @@ import { KATEGORI } from "../data/kategori.js";
 export const BATAS_NAMA = 60;
 export const BATAS_HARGA = 1_000_000_000;
 
-export function validasiProduk({ nama, harga, kategori }) {
+export function validasiProduk({ nama, harga, kategori, gambar = "" }) {
   const galat = {};
 
   const namaBersih = String(nama).trim();
@@ -32,9 +32,14 @@ export function validasiProduk({ nama, harga, kategori }) {
     galat.kategori = "Pilih kategori produk";
   }
 
+  // Gambar opsional: kosong boleh; bila ada harus berupa gambar (data URL hasil unggahan atau berkas bawaan).
+  if (gambar !== "" && !/^(data:image\/|\/images\/)/.test(gambar)) {
+    galat.gambar = "Berkas harus berupa gambar";
+  }
+
   return {
     valid: Object.keys(galat).length === 0,
     galat,
-    data: { nama: namaBersih, harga: angka, kategori },
+    data: { nama: namaBersih, harga: angka, kategori, gambar },
   };
 }
