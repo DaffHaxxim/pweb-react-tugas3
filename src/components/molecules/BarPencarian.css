@@ -11,3 +11,11 @@
   color: var(--warna-teks-redup);
   font-size: 0.9rem;
 }
+
+.bar-pencarian__kiri {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}

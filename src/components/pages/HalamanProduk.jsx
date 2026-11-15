@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { produkAwal } from "../../data/produk.js";
 import { saringProduk } from "../../utils/saring.js";
+import { urutkanProduk } from "../../utils/urut.js";
 import { SEMUA_KATEGORI } from "../../data/kategori.js";
 import TataLetak from "../templates/TataLetak.jsx";
 import HeaderHalaman from "../organisms/HeaderHalaman.jsx";
@@ -17,10 +18,14 @@ function HalamanProduk() {
   const [daftarProduk, setDaftarProduk] = useState(produkAwal);
   const [kataKunci, setKataKunci] = useState("");
   const [kategoriAktif, setKategoriAktif] = useState(SEMUA_KATEGORI);
+  const [urutan, setUrutan] = useState("id");
   // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus", produk? }.
   const [modal, setModal] = useState(null);
 
-  const tampil = saringProduk(daftarProduk, kataKunci, kategoriAktif);
+  const tampil = urutkanProduk(
+    saringProduk(daftarProduk, kataKunci, kategoriAktif),
+    urutan
+  );
   const tutupModal = () => setModal(null);
 
   function tambahProduk(data) {
@@ -47,6 +52,8 @@ function HalamanProduk() {
       <BarPencarian
         kataKunci={kataKunci}
         onUbah={setKataKunci}
+        urutan={urutan}
+        onUrut={setUrutan}
         total={daftarProduk.length}
       />
       <FilterKategori aktif={kategoriAktif} onPilih={setKategoriAktif} />
