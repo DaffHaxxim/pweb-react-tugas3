@@ -40,3 +40,9 @@
   cursor: pointer;
   filter: sepia(1) saturate(6) hue-rotate(-25deg);
 }
+
+@media (max-width: 560px) {
+  .kotak-cari {
+    max-width: none;
+  }
+}

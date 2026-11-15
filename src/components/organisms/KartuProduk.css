@@ -37,3 +37,24 @@
 .kartu__aksi .tombol {
   flex: 1;
 }
+
+/* Kartu lebih ringkas pada layar sempit; tombol disusun menurun agar tidak sempit. */
+@media (max-width: 560px) {
+  .kartu {
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .kartu__nama {
+    font-size: 0.95rem;
+  }
+
+  .kartu__harga {
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+
+  .kartu__aksi {
+    flex-direction: column;
+  }
+}

@@ -71,3 +71,10 @@
   background: var(--warna-kuning-muda);
   color: var(--warna-hitam);
 }
+
+/* Layar sentuh: target sentuh minimal 44 px agar mudah ditekan. */
+@media (pointer: coarse) {
+  .tombol {
+    min-height: 44px;
+  }
+}

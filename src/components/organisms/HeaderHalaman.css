@@ -15,3 +15,9 @@
   margin: 6px 0 0;
   color: var(--warna-teks-redup);
 }
+
+@media (max-width: 560px) {
+  .header-halaman > .tombol {
+    width: 100%;
+  }
+}

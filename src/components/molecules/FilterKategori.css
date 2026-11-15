@@ -37,3 +37,18 @@
   background: var(--warna-cokelat-tua);
   border-color: var(--warna-cokelat-tua);
 }
+
+/* Layar sempit: satu baris yang bisa digeser ke samping, bukan tiga baris yang memenuhi layar. */
+@media (max-width: 640px) {
+  .filter-kategori {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .filter-kategori__chip {
+    flex: none;
+    white-space: nowrap;
+  }
+}

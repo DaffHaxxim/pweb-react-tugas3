@@ -19,3 +19,17 @@
   flex-wrap: wrap;
   flex: 1 1 auto;
 }
+
+@media (max-width: 560px) {
+  .bar-pencarian__kiri {
+    width: 100%;
+  }
+
+  .pilih-urutan {
+    width: 100%;
+  }
+
+  .pilih-urutan__select {
+    flex: 1;
+  }
+}

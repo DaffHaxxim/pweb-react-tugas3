@@ -62,3 +62,13 @@
   gap: 8px;
   margin-top: 20px;
 }
+
+@media (max-width: 560px) {
+  .modal {
+    padding: 18px;
+  }
+
+  .modal__aksi {
+    flex-wrap: wrap;
+  }
+}
