@@ -1,0 +1,39 @@
+.kartu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: var(--warna-permukaan);
+  border: 1px solid var(--warna-garis);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+}
+
+.kartu__id {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warna-teks-redup);
+  letter-spacing: 0.02em;
+}
+
+.kartu__nama {
+  font-size: 1.1rem;
+}
+
+.kartu__harga {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--warna-oranye);
+}
+
+.kartu__aksi {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.kartu__aksi .tombol {
+  flex: 1;
+}

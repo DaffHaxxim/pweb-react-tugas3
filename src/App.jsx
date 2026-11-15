@@ -1,15 +1,15 @@
 import { produkAwal } from "./data/produk.js";
-import { formatHarga } from "./utils/format.js";
+import KartuProduk from "./components/organisms/KartuProduk.jsx";
 
 function App() {
-  const contoh = produkAwal[0];
-
   return (
     <>
       <h1>Manajemen Produk</h1>
-      <p>
-        {contoh.nama}: {formatHarga(contoh.harga)}
-      </p>
+      <KartuProduk
+        produk={produkAwal[0]}
+        onEdit={(p) => alert(`Edit: ${p.nama}`)}
+        onHapus={(p) => alert(`Hapus: ${p.nama}`)}
+      />
     </>
   );
 }
