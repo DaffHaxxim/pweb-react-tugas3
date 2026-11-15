@@ -7,13 +7,14 @@ import BarPencarian from "../molecules/BarPencarian.jsx";
 import GridProduk from "../organisms/GridProduk.jsx";
 import Modal from "../organisms/Modal.jsx";
 import FormProduk from "../organisms/FormProduk.jsx";
+import DialogHapus from "../organisms/DialogHapus.jsx";
 import "./HalamanProduk.css";
 
 // Page: template + konten nyata. State halaman dipegang di sini lalu dibagikan lewat props.
 function HalamanProduk() {
   const [daftarProduk, setDaftarProduk] = useState(produkAwal);
   const [kataKunci, setKataKunci] = useState("");
-  // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit", produk? }.
+  // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus", produk? }.
   const [modal, setModal] = useState(null);
 
   const tampil = saringProduk(daftarProduk, kataKunci);
@@ -32,6 +33,11 @@ function HalamanProduk() {
     tutupModal();
   }
 
+  function hapusProduk() {
+    setDaftarProduk(daftarProduk.filter((p) => p.id !== modal.produk.id));
+    tutupModal();
+  }
+
   return (
     <TataLetak>
       <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
@@ -43,7 +49,7 @@ function HalamanProduk() {
       <GridProduk
         daftar={tampil}
         onEdit={(produk) => setModal({ jenis: "edit", produk })}
-        onHapus={(p) => alert(`Hapus: ${p.nama}`)}
+        onHapus={(produk) => setModal({ jenis: "hapus", produk })}
       />
       <p className="halaman-produk__ringkasan">
         Menampilkan {tampil.length} dari {daftarProduk.length} produk
@@ -76,6 +82,14 @@ function HalamanProduk() {
             onBatal={tutupModal}
           />
         </Modal>
+      )}
+
+      {modal?.jenis === "hapus" && (
+        <DialogHapus
+          produk={modal.produk}
+          onKonfirmasi={hapusProduk}
+          onBatal={tutupModal}
+        />
       )}
     </TataLetak>
   );
