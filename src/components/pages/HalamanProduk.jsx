@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { produkAwal } from "../../data/produk.js";
 import { saringProduk } from "../../utils/saring.js";
+import { SEMUA_KATEGORI } from "../../data/kategori.js";
 import TataLetak from "../templates/TataLetak.jsx";
 import HeaderHalaman from "../organisms/HeaderHalaman.jsx";
 import BarPencarian from "../molecules/BarPencarian.jsx";
+import FilterKategori from "../molecules/FilterKategori.jsx";
 import GridProduk from "../organisms/GridProduk.jsx";
 import Modal from "../organisms/Modal.jsx";
 import FormProduk from "../organisms/FormProduk.jsx";
@@ -14,10 +16,11 @@ import "./HalamanProduk.css";
 function HalamanProduk() {
   const [daftarProduk, setDaftarProduk] = useState(produkAwal);
   const [kataKunci, setKataKunci] = useState("");
+  const [kategoriAktif, setKategoriAktif] = useState(SEMUA_KATEGORI);
   // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus", produk? }.
   const [modal, setModal] = useState(null);
 
-  const tampil = saringProduk(daftarProduk, kataKunci);
+  const tampil = saringProduk(daftarProduk, kataKunci, kategoriAktif);
   const tutupModal = () => setModal(null);
 
   function tambahProduk(data) {
@@ -46,6 +49,7 @@ function HalamanProduk() {
         onUbah={setKataKunci}
         total={daftarProduk.length}
       />
+      <FilterKategori aktif={kategoriAktif} onPilih={setKategoriAktif} />
       <GridProduk
         daftar={tampil}
         onEdit={(produk) => setModal({ jenis: "edit", produk })}
