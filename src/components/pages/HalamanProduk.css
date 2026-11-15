@@ -3,3 +3,14 @@
   color: var(--warna-teks-redup);
   font-size: 0.85rem;
 }
+
+.halaman-produk__peringatan {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  background: var(--warna-bahaya-muda);
+  border: 1px solid #f4b8b2;
+  border-radius: var(--radius-kecil);
+  color: var(--warna-bahaya);
+  font-weight: 600;
+  font-size: 0.9rem;
+}

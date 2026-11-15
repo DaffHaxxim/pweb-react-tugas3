@@ -5,6 +5,7 @@ import KolomGambar from "../molecules/KolomGambar.jsx";
 import Tombol from "../atoms/Tombol.jsx";
 import { validasiProduk } from "../../utils/validasi.js";
 import { KATEGORI } from "../../data/kategori.js";
+import { perkecilGambar } from "../../utils/gambar.js";
 
 const BATAS_BERKAS = 5 * 1024 * 1024; // 5 MB
 
@@ -17,8 +18,8 @@ function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gamba
   const [gambar, setGambar] = useState(awal.gambar ?? "");
   const [galat, setGalat] = useState({});
 
-  // Membaca berkas gambar menjadi data URL (teks) agar bisa disimpan bersama data produk.
-  function pilihBerkas(berkas) {
+  // Gambar unggahan diperkecil dahulu (lihat utils/gambar.js) lalu disimpan sebagai data URL.
+  async function pilihBerkas(berkas) {
     if (!berkas) return;
     if (!berkas.type.startsWith("image/")) {
       setGalat((g) => ({ ...g, gambar: "Berkas harus berupa gambar" }));
@@ -28,12 +29,12 @@ function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gamba
       setGalat((g) => ({ ...g, gambar: "Ukuran gambar maksimal 5 MB" }));
       return;
     }
-    const pembaca = new FileReader();
-    pembaca.onload = () => {
-      setGambar(pembaca.result);
+    try {
+      setGambar(await perkecilGambar(berkas));
       setGalat((g) => ({ ...g, gambar: undefined }));
-    };
-    pembaca.readAsDataURL(berkas);
+    } catch {
+      setGalat((g) => ({ ...g, gambar: "Gambar tidak dapat dibaca" }));
+    }
   }
 
   function kirim(e) {

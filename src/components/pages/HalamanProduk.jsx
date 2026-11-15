@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { produkAwal } from "../../data/produk.js";
+import { muatProduk, simpanProduk } from "../../utils/penyimpanan.js";
 import { saringProduk } from "../../utils/saring.js";
 import { urutkanProduk } from "../../utils/urut.js";
 import { SEMUA_KATEGORI } from "../../data/kategori.js";
@@ -15,10 +16,12 @@ import "./HalamanProduk.css";
 
 // Page: template + konten nyata. State halaman dipegang di sini lalu dibagikan lewat props.
 function HalamanProduk() {
-  const [daftarProduk, setDaftarProduk] = useState(produkAwal);
+  // Fungsi awal dijalankan sekali: data dibaca dari localStorage, atau memakai data awal.
+  const [daftarProduk, setDaftarProduk] = useState(() => muatProduk(produkAwal));
   const [kataKunci, setKataKunci] = useState("");
   const [kategoriAktif, setKategoriAktif] = useState(SEMUA_KATEGORI);
   const [urutan, setUrutan] = useState("id");
+  const [simpanGagal, setSimpanGagal] = useState(false);
   // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus", produk? }.
   const [modal, setModal] = useState(null);
 
@@ -27,6 +30,11 @@ function HalamanProduk() {
     urutan
   );
   const tutupModal = () => setModal(null);
+
+  // Setiap daftar berubah, simpan ke localStorage.
+  useEffect(() => {
+    setSimpanGagal(!simpanProduk(daftarProduk));
+  }, [daftarProduk]);
 
   function tambahProduk(data) {
     const idBaru = daftarProduk.reduce((maks, p) => Math.max(maks, p.id), 0) + 1;
@@ -48,6 +56,11 @@ function HalamanProduk() {
 
   return (
     <TataLetak>
+      {simpanGagal && (
+        <p role="alert" className="halaman-produk__peringatan">
+          Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
+        </p>
+      )}
       <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
       <BarPencarian
         kataKunci={kataKunci}
