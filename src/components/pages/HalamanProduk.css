@@ -1,5 +1,14 @@
+.halaman-produk__kaki {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
 .halaman-produk__ringkasan {
-  margin: 8px 0 0;
+  margin: 0;
   color: var(--warna-teks-redup);
   font-size: 0.85rem;
 }
