@@ -1,0 +1,26 @@
+.pilih-urutan {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pilih-urutan__label {
+  color: var(--warna-teks-redup);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pilih-urutan__select {
+  padding: 9px 12px;
+  border: 1.5px solid var(--warna-garis);
+  border-radius: var(--radius-kecil);
+  background: #fff;
+  color: var(--warna-teks);
+  cursor: pointer;
+}
+
+.pilih-urutan__select:focus {
+  outline: none;
+  border-color: var(--warna-kuning);
+  box-shadow: 0 0 0 3px var(--warna-kuning-muda);
+}

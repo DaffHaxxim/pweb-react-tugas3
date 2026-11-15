@@ -1,0 +1,25 @@
+.dialog-hapus__produk {
+  padding: 12px 14px;
+  background: var(--warna-bahaya-muda);
+  border: 1px solid #f4b8b2;
+  border-radius: var(--radius);
+}
+
+.dialog-hapus__produk p {
+  margin: 0;
+}
+
+.dialog-hapus__id {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--warna-teks-redup);
+}
+
+.dialog-hapus__nama {
+  font-weight: 700;
+}
+
+.dialog-hapus__harga {
+  font-weight: 800;
+  color: var(--warna-bahaya);
+}

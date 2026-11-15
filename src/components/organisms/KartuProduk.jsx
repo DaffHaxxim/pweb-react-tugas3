@@ -1,0 +1,27 @@
+import Tombol from "../atoms/Tombol.jsx";
+import Lencana from "../atoms/Lencana.jsx";
+import GambarProduk from "../atoms/GambarProduk.jsx";
+import { formatHarga } from "../../utils/format.js";
+import "./KartuProduk.css";
+
+function KartuProduk({ produk, onEdit, onHapus }) {
+  return (
+    <article className="kartu">
+      <GambarProduk src={produk.gambar} alt={produk.nama} />
+      <p className="kartu__id">ID: {produk.id}</p>
+      <Lencana>{produk.kategori}</Lencana>
+      <h3 className="kartu__nama">{produk.nama}</h3>
+      <p className="kartu__harga">{formatHarga(produk.harga)}</p>
+      <div className="kartu__aksi">
+        <Tombol varian="garis" onClick={() => onEdit(produk)}>
+          Edit
+        </Tombol>
+        <Tombol varian="bahaya-garis" onClick={() => onHapus(produk)}>
+          Hapus
+        </Tombol>
+      </div>
+    </article>
+  );
+}
+
+export default KartuProduk;

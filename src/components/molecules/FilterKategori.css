@@ -1,0 +1,54 @@
+.filter-kategori {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 4px;
+}
+
+.filter-kategori__chip {
+  padding: 6px 14px;
+  border: 1.5px solid var(--warna-garis);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--warna-cokelat);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.filter-kategori__chip:hover {
+  background: var(--warna-kuning-muda);
+  border-color: var(--warna-kuning);
+}
+
+.filter-kategori__chip:focus-visible {
+  outline: 3px solid var(--warna-kuning);
+  outline-offset: 2px;
+}
+
+.filter-kategori__chip--aktif {
+  background: var(--warna-hitam);
+  border-color: var(--warna-hitam);
+  color: #fff;
+}
+
+.filter-kategori__chip--aktif:hover {
+  background: var(--warna-cokelat-tua);
+  border-color: var(--warna-cokelat-tua);
+}
+
+/* Layar sempit: satu baris yang bisa digeser ke samping, bukan tiga baris yang memenuhi layar. */
+@media (max-width: 640px) {
+  .filter-kategori {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .filter-kategori__chip {
+    flex: none;
+    white-space: nowrap;
+  }
+}

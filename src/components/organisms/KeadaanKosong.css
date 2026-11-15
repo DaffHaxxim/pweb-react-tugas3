@@ -1,0 +1,24 @@
+.kosong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 40px 16px;
+  background: var(--warna-permukaan);
+  border: 1.5px dashed var(--warna-garis);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.kosong__judul {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--warna-cokelat);
+}
+
+.kosong__teks {
+  margin: 0 0 8px;
+  color: var(--warna-teks-redup);
+}

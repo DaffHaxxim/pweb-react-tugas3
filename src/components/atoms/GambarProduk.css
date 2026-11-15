@@ -1,0 +1,27 @@
+.gambar-produk {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--warna-permukaan);
+  border: 1px solid var(--warna-garis);
+  border-radius: var(--radius-kecil);
+}
+
+.gambar-produk img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gambar-produk--kosong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--warna-kuning-muda);
+  color: var(--warna-cokelat);
+}
+
+.gambar-produk--kosong svg {
+  width: 44px;
+  height: 44px;
+  opacity: 0.7;
+}

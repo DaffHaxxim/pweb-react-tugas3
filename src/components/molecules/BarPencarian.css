@@ -1,0 +1,35 @@
+.bar-pencarian {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.bar-pencarian__jumlah {
+  color: var(--warna-teks-redup);
+  font-size: 0.9rem;
+}
+
+.bar-pencarian__kiri {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}
+
+@media (max-width: 560px) {
+  .bar-pencarian__kiri {
+    width: 100%;
+  }
+
+  .pilih-urutan {
+    width: 100%;
+  }
+
+  .pilih-urutan__select {
+    flex: 1;
+  }
+}
