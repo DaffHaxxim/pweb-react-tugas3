@@ -1,0 +1,13 @@
+.bar-pencarian {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.bar-pencarian__jumlah {
+  color: var(--warna-teks-redup);
+  font-size: 0.9rem;
+}
