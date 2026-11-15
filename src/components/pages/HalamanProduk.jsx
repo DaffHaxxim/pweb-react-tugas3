@@ -13,21 +13,28 @@ import "./HalamanProduk.css";
 function HalamanProduk() {
   const [daftarProduk, setDaftarProduk] = useState(produkAwal);
   const [kataKunci, setKataKunci] = useState("");
-  // Pop-up yang sedang terbuka: null (tidak ada) atau "tambah".
+  // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit", produk? }.
   const [modal, setModal] = useState(null);
 
   const tampil = saringProduk(daftarProduk, kataKunci);
+  const tutupModal = () => setModal(null);
 
   function tambahProduk(data) {
     const idBaru = daftarProduk.reduce((maks, p) => Math.max(maks, p.id), 0) + 1;
-    const baru = { id: idBaru, ...data };
-    setDaftarProduk([...daftarProduk, baru]);
-    setModal(null);
+    setDaftarProduk([...daftarProduk, { id: idBaru, ...data }]);
+    tutupModal();
+  }
+
+  function ubahProduk(data) {
+    setDaftarProduk(
+      daftarProduk.map((p) => (p.id === modal.produk.id ? { ...p, ...data } : p))
+    );
+    tutupModal();
   }
 
   return (
     <TataLetak>
-      <HeaderHalaman onTambah={() => setModal("tambah")} />
+      <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
       <BarPencarian
         kataKunci={kataKunci}
         onUbah={setKataKunci}
@@ -35,23 +42,38 @@ function HalamanProduk() {
       />
       <GridProduk
         daftar={tampil}
-        onEdit={(p) => alert(`Edit: ${p.nama}`)}
+        onEdit={(produk) => setModal({ jenis: "edit", produk })}
         onHapus={(p) => alert(`Hapus: ${p.nama}`)}
       />
       <p className="halaman-produk__ringkasan">
         Menampilkan {tampil.length} dari {daftarProduk.length} produk
       </p>
 
-      {modal === "tambah" && (
+      {modal?.jenis === "tambah" && (
         <Modal
           judul="Tambah Produk"
           deskripsi="Masukkan informasi produk baru."
-          onTutup={() => setModal(null)}
+          onTutup={tutupModal}
         >
           <FormProduk
             labelSimpan="Simpan Produk"
             onSimpan={tambahProduk}
-            onBatal={() => setModal(null)}
+            onBatal={tutupModal}
+          />
+        </Modal>
+      )}
+
+      {modal?.jenis === "edit" && (
+        <Modal
+          judul="Edit Produk"
+          deskripsi="Perbarui informasi produk yang dipilih."
+          onTutup={tutupModal}
+        >
+          <FormProduk
+            awal={modal.produk}
+            labelSimpan="Simpan Perubahan"
+            onSimpan={ubahProduk}
+            onBatal={tutupModal}
           />
         </Modal>
       )}
