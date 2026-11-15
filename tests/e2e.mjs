@@ -68,6 +68,9 @@ async function skenario(nama, diharapkan, fn, opsi = {}) {
   }
   const n = hasil.length + 1;
   if (folderGambar) {
+    // Beri jeda agar transisi CSS (0,15 dtk) dan animasi toast (0,2 dtk) selesai; tanpa ini tangkapan
+    // layar bisa merekam tombol atau pesan yang masih setengah transparan.
+    await page.waitForTimeout(500);
     const slug = nama.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
     await page.screenshot({ path: path.join(folderGambar, `${String(n).padStart(2, "0")}-${slug}.png`) });
   }
