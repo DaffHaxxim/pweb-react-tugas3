@@ -85,43 +85,47 @@ function HalamanProduk() {
   }
 
   return (
-    <TataLetak>
-      {simpanGagal && (
-        <p role="alert" className="halaman-produk__peringatan">
-          Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
-        </p>
-      )}
-      <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
-      <BarPencarian
-        kataKunci={kataKunci}
-        onUbah={setKataKunci}
-        urutan={urutan}
-        onUrut={setUrutan}
-        total={daftarProduk.length}
-      />
-      <FilterKategori aktif={kategoriAktif} onPilih={setKategoriAktif} />
-      {tampil.length === 0 ? (
-        <KeadaanKosong
-          adaSaringan={adaSaringan}
-          onHapusSaringan={hapusSaringan}
-          onTambah={() => setModal({ jenis: "tambah" })}
+    <>
+      <TataLetak>
+        {simpanGagal && (
+          <p role="alert" className="halaman-produk__peringatan">
+            Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
+          </p>
+        )}
+        <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
+        <BarPencarian
+          kataKunci={kataKunci}
+          onUbah={setKataKunci}
+          urutan={urutan}
+          onUrut={setUrutan}
+          total={daftarProduk.length}
         />
-      ) : (
-        <GridProduk
-          daftar={tampil}
-          onEdit={(produk) => setModal({ jenis: "edit", produk })}
-          onHapus={(produk) => setModal({ jenis: "hapus", produk })}
-        />
-      )}
-      <div className="halaman-produk__kaki">
-        <p className="halaman-produk__ringkasan">
-          Menampilkan {tampil.length} dari {daftarProduk.length} produk
-        </p>
-        <Tombol varian="hantu" onClick={() => setModal({ jenis: "reset" })}>
-          Reset ke data awal
-        </Tombol>
-      </div>
+        <FilterKategori aktif={kategoriAktif} onPilih={setKategoriAktif} />
+        {tampil.length === 0 ? (
+          <KeadaanKosong
+            adaSaringan={adaSaringan}
+            onHapusSaringan={hapusSaringan}
+            onTambah={() => setModal({ jenis: "tambah" })}
+          />
+        ) : (
+          <GridProduk
+            daftar={tampil}
+            onEdit={(produk) => setModal({ jenis: "edit", produk })}
+            onHapus={(produk) => setModal({ jenis: "hapus", produk })}
+          />
+        )}
+        <div className="halaman-produk__kaki">
+          <p className="halaman-produk__ringkasan">
+            Menampilkan {tampil.length} dari {daftarProduk.length} produk
+          </p>
+          <Tombol varian="hantu" onClick={() => setModal({ jenis: "reset" })}>
+            Reset ke data awal
+          </Tombol>
+        </div>
+      </TataLetak>
 
+      {/* Pop-up dan toast adalah lapisan melayang (position: fixed), jadi diletakkan di luar
+          <main>. Fragment <>...</> memungkinkan beberapa elemen sejajar tanpa elemen pembungkus. */}
       {modal?.jenis === "tambah" && (
         <Modal
           judul="Tambah Produk"
@@ -177,7 +181,7 @@ function HalamanProduk() {
       )}
 
       {toast && <Toast pesan={toast.pesan} />}
-    </TataLetak>
+    </>
   );
 }
 
