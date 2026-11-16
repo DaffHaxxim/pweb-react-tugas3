@@ -5,7 +5,7 @@ import PilihUrutan from "./PilihUrutan.jsx";
 function BarPencarian({ kataKunci, onUbah, urutan, onUrut, total }) {
   return (
     <div className="mb-1 flex flex-wrap items-center justify-between gap-3">
-      <div className="flex flex-1 flex-wrap items-center gap-3.5 max-[560px]:w-full">
+      <div className="flex flex-auto flex-wrap items-center gap-3.5 max-[560px]:w-full">
         <KotakCari nilai={kataKunci} onUbah={onUbah} />
         <PilihUrutan nilai={urutan} onUbah={onUrut} />
       </div>
