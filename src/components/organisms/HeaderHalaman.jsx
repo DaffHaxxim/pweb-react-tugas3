@@ -1,16 +1,15 @@
 import Tombol from "../atoms/Tombol.jsx";
-import "./HeaderHalaman.css";
 
 function HeaderHalaman({ onTambah }) {
   return (
-    <header className="header-halaman">
+    <header className="mb-5 flex flex-wrap items-start justify-between gap-4">
       <div>
-        <h1>Manajemen Produk</h1>
-        <p className="header-halaman__deskripsi">
+        <h1 className="text-[clamp(1.6rem,3vw,2.1rem)] leading-tight font-bold text-cokelat">Manajemen Produk</h1>
+        <p className="mt-1.5 text-redup">
           Kelola daftar produk dan harga dalam satu tempat.
         </p>
       </div>
-      <Tombol onClick={onTambah}>+ Tambah Produk</Tombol>
+      <Tombol className="max-[560px]:w-full" onClick={onTambah}>+ Tambah Produk</Tombol>
     </header>
   );
 }

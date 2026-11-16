@@ -3,6 +3,7 @@ import KolomIsian from "../molecules/KolomIsian.jsx";
 import KolomPilihan from "../molecules/KolomPilihan.jsx";
 import KolomGambar from "../molecules/KolomGambar.jsx";
 import Tombol from "../atoms/Tombol.jsx";
+import { AksiModal } from "./Modal.jsx";
 import { validasiProduk } from "../../utils/validasi.js";
 import { KATEGORI } from "../../data/kategori.js";
 import { perkecilGambar } from "../../utils/gambar.js";
@@ -81,12 +82,12 @@ function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gamba
         onHapus={() => setGambar("")}
         galat={galat.gambar}
       />
-      <div className="modal__aksi">
+      <AksiModal>
         <Tombol varian="garis" onClick={onBatal}>
           Batal
         </Tombol>
         <Tombol type="submit">{labelSimpan}</Tombol>
-      </div>
+      </AksiModal>
     </form>
   );
 }
