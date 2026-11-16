@@ -38,11 +38,22 @@
   @keyframes toast-masuk {
     from {
       opacity: 0;
-      transform: translate(-50%, 8px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
-      transform: translate(-50%, 0);
+      transform: translateY(0);
     }
+  }
+}
+
+/* Gaya dasar halaman: latar putih dan garis gradasi kuning ke cokelat di tepi atas. */
+@layer base {
+  body {
+    min-height: 100vh;
+    background: var(--color-latar);
+    color: var(--color-teks);
+    border-top: 6px solid var(--color-kuning);
+    border-image: linear-gradient(90deg, var(--color-kuning), var(--color-oranye), var(--color-cokelat)) 1;
   }
 }

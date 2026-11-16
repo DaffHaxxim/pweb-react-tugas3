@@ -9,13 +9,12 @@ import HeaderHalaman from "../organisms/HeaderHalaman.jsx";
 import BarPencarian from "../molecules/BarPencarian.jsx";
 import FilterKategori from "../molecules/FilterKategori.jsx";
 import GridProduk from "../organisms/GridProduk.jsx";
-import Modal from "../organisms/Modal.jsx";
+import Modal, { AksiModal } from "../organisms/Modal.jsx";
 import FormProduk from "../organisms/FormProduk.jsx";
 import DialogHapus from "../organisms/DialogHapus.jsx";
 import KeadaanKosong from "../organisms/KeadaanKosong.jsx";
 import Toast from "../organisms/Toast.jsx";
 import Tombol from "../atoms/Tombol.jsx";
-import "./HalamanProduk.css";
 
 // Page: template + konten nyata. State halaman dipegang di sini lalu dibagikan lewat props.
 function HalamanProduk() {
@@ -88,7 +87,7 @@ function HalamanProduk() {
     <>
       <TataLetak>
         {simpanGagal && (
-          <p role="alert" className="halaman-produk__peringatan">
+          <p role="alert" className="mb-4 rounded-lg border border-[#f4b8b2] bg-bahaya-muda px-3.5 py-2.5 text-[0.9rem] font-semibold text-bahaya">
             Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
           </p>
         )}
@@ -114,8 +113,8 @@ function HalamanProduk() {
             onHapus={(produk) => setModal({ jenis: "hapus", produk })}
           />
         )}
-        <div className="halaman-produk__kaki">
-          <p className="halaman-produk__ringkasan">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-[0.85rem] text-redup">
             Menampilkan {tampil.length} dari {daftarProduk.length} produk
           </p>
           <Tombol varian="hantu" onClick={() => setModal({ jenis: "reset" })}>
@@ -161,14 +160,14 @@ function HalamanProduk() {
           deskripsi="Semua produk yang ditambah, diubah, atau dihapus akan hilang dan diganti katalog awal."
           onTutup={tutupModal}
         >
-          <div className="modal__aksi">
+          <AksiModal>
             <Tombol varian="garis" onClick={tutupModal}>
               Batal
             </Tombol>
             <Tombol varian="bahaya" onClick={resetData}>
               Reset Data
             </Tombol>
-          </div>
+          </AksiModal>
         </Modal>
       )}
 
