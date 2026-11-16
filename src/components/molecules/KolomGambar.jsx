@@ -1,26 +1,26 @@
 import { useRef } from "react";
 import GambarProduk from "../atoms/GambarProduk.jsx";
 import Tombol from "../atoms/Tombol.jsx";
-import "./KolomGambar.css";
+import { KOLOM, LABEL, pesan } from "./gayaKolom.js";
 
 // Molecule: pilihan gambar opsional dengan pratinjau dan tombol hapus.
 // Pembacaan berkas dilakukan komponen induk; molecule ini hanya menampilkan dan meneruskan pilihan.
 function KolomGambar({ nilai, nama, onPilihBerkas, onHapus, galat }) {
   const inputBerkas = useRef(null);
   return (
-    <div className="kolom">
-      <span className="kolom__label">Gambar (opsional)</span>
-      <div className="kolom-gambar">
-        <div className="kolom-gambar__pratinjau">
+    <div className={KOLOM}>
+      <span className={LABEL}>Gambar (opsional)</span>
+      <div className="flex items-center gap-3.5">
+        <div className="w-30 flex-none">
           <GambarProduk src={nilai} alt={nama || "Pratinjau gambar"} />
         </div>
-        <div className="kolom-gambar__aksi">
+        <div className="flex flex-col items-start gap-1.5">
           <input
             ref={inputBerkas}
             type="file"
             name="gambar"
             accept="image/*"
-            className="kolom-gambar__input"
+            className="sr-only"
             aria-label="Pilih berkas gambar"
             onChange={(e) => onPilihBerkas(e.target.files[0])}
           />
@@ -34,7 +34,7 @@ function KolomGambar({ nilai, nama, onPilihBerkas, onHapus, galat }) {
           )}
         </div>
       </div>
-      <small className={galat ? "kolom__pesan kolom__pesan--galat" : "kolom__pesan"}>
+      <small className={pesan(galat)}>
         {galat || "JPG, PNG, atau WebP, maksimal 5 MB"}
       </small>
     </div>

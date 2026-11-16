@@ -1,17 +1,17 @@
-import "./KolomIsian.css";
+import { KOLOM, LABEL, kontrol, pesan } from "./gayaKolom.js";
 
 // Molecule: label + input + teks bantu/pesan galat. Dipakai untuk semua isian form.
 function KolomIsian({ label, name, nilai, onUbah, placeholder, petunjuk, galat, ...sisa }) {
   const idPesan = `${name}-pesan`;
   return (
-    <div className="kolom">
-      <label className="kolom__label" htmlFor={name}>
+    <div className={KOLOM}>
+      <label className={LABEL} htmlFor={name}>
         {label}
       </label>
       <input
         id={name}
         name={name}
-        className={galat ? "kolom__input kolom__input--galat" : "kolom__input"}
+        className={kontrol(galat)}
         value={nilai}
         onChange={(e) => onUbah(e.target.value)}
         placeholder={placeholder}
@@ -19,7 +19,7 @@ function KolomIsian({ label, name, nilai, onUbah, placeholder, petunjuk, galat, 
         aria-describedby={idPesan}
         {...sisa}
       />
-      <small id={idPesan} className={galat ? "kolom__pesan kolom__pesan--galat" : "kolom__pesan"}>
+      <small id={idPesan} className={pesan(galat)}>
         {galat || petunjuk}
       </small>
     </div>
