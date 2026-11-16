@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
-import { produkAwal } from "../../data/produk.js";
-import { muatProduk, simpanProduk } from "../../utils/penyimpanan.js";
-import { saringProduk } from "../../utils/saring.js";
-import { urutkanProduk } from "../../utils/urut.js";
-import { SEMUA_KATEGORI } from "../../data/kategori.js";
-import TataLetak from "../templates/TataLetak.jsx";
-import HeaderHalaman from "../organisms/HeaderHalaman.jsx";
-import BarPencarian from "../molecules/BarPencarian.jsx";
-import FilterKategori from "../molecules/FilterKategori.jsx";
-import GridProduk from "../organisms/GridProduk.jsx";
-import Modal, { AksiModal } from "../organisms/Modal.jsx";
-import FormProduk from "../organisms/FormProduk.jsx";
-import DialogHapus from "../organisms/DialogHapus.jsx";
-import KeadaanKosong from "../organisms/KeadaanKosong.jsx";
-import Toast from "../organisms/Toast.jsx";
-import Tombol from "../atoms/Tombol.jsx";
+import { produkAwal } from "../data/produk.js";
+import { muatProduk, simpanProduk } from "../utils/penyimpanan.js";
+import { saringProduk } from "../utils/saring.js";
+import { urutkanProduk } from "../utils/urut.js";
+import { SEMUA_KATEGORI } from "../data/kategori.js";
+import HeaderHalaman from "../components/organisms/HeaderHalaman.jsx";
+import BarPencarian from "../components/molecules/BarPencarian.jsx";
+import FilterKategori from "../components/molecules/FilterKategori.jsx";
+import GridProduk from "../components/organisms/GridProduk.jsx";
+import Modal, { AksiModal } from "../components/organisms/Modal.jsx";
+import FormProduk from "../components/organisms/FormProduk.jsx";
+import DialogHapus from "../components/organisms/DialogHapus.jsx";
+import KeadaanKosong from "../components/organisms/KeadaanKosong.jsx";
+import Toast from "../components/organisms/Toast.jsx";
+import Tombol from "../components/atoms/Tombol.jsx";
 
 // Page: template + konten nyata. State halaman dipegang di sini lalu dibagikan lewat props.
 function HalamanProduk() {
@@ -85,7 +84,7 @@ function HalamanProduk() {
 
   return (
     <>
-      <TataLetak>
+      <section>
         {simpanGagal && (
           <p role="alert" className="mb-4 rounded-lg border border-[#f4b8b2] bg-bahaya-muda px-3.5 py-2.5 text-[0.9rem] font-semibold text-bahaya">
             Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
@@ -121,7 +120,7 @@ function HalamanProduk() {
             Reset ke data awal
           </Tombol>
         </div>
-      </TataLetak>
+      </section>
 
       {/* Pop-up dan toast adalah lapisan melayang (position: fixed), jadi diletakkan di luar
           <main>. Fragment <>...</> memungkinkan beberapa elemen sejajar tanpa elemen pembungkus. */}

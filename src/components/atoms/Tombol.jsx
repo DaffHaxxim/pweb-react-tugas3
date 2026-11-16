@@ -14,9 +14,12 @@ const VARIAN = {
   hantu: "border-transparent bg-transparent text-redup enabled:hover:bg-kuning-muda enabled:hover:text-hitam",
 };
 
+// Gaya tombol dapat dipakai ulang oleh <Link> agar tautan berpenampilan tombol.
+export const gayaTombol = (varian = "isi", tambahan = "") => `${DASAR} ${VARIAN[varian]} ${tambahan}`;
+
 function Tombol({ varian = "isi", type = "button", className = "", children, ...sisa }) {
   return (
-    <button type={type} className={`${DASAR} ${VARIAN[varian]} ${className}`} {...sisa}>
+    <button type={type} className={gayaTombol(varian, className)} {...sisa}>
       {children}
     </button>
   );
