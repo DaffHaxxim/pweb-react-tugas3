@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { produkAwal } from "./data/produk.js";
 import { muatProduk, simpanProduk, muatTampilan, simpanTampilan } from "./utils/penyimpanan.js";
 import AppLayout from "./layouts/AppLayout.jsx";
+import HalamanDashboard from "./pages/HalamanDashboard.jsx";
 import HalamanProduk from "./pages/HalamanProduk.jsx";
 import HalamanDetailProduk from "./pages/HalamanDetailProduk.jsx";
 import HalamanPengaturan from "./pages/HalamanPengaturan.jsx";
@@ -64,7 +65,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<AppLayout simpanGagal={simpanGagal} />}>
-          <Route index element={<Navigate to="/products" replace />} />
+          <Route index element={<HalamanDashboard daftarProduk={daftarProduk} />} />
           <Route
             path="products"
             element={
