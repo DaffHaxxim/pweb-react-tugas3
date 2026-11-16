@@ -5,8 +5,9 @@ import { KATEGORI } from "../data/kategori.js";
 // (nama dirapikan, harga berupa angka). `galat` berisi pesan per kolom yang bermasalah.
 export const BATAS_NAMA = 60;
 export const BATAS_HARGA = 1_000_000_000;
+export const BATAS_STOK = 1_000_000;
 
-export function validasiProduk({ nama, harga, kategori, gambar = "" }) {
+export function validasiProduk({ nama, harga, stok, kategori, gambar = "" }) {
   const galat = {};
 
   const namaBersih = String(nama).trim();
@@ -28,6 +29,18 @@ export function validasiProduk({ nama, harga, kategori, gambar = "" }) {
     else if (angka > BATAS_HARGA) galat.harga = "Harga terlalu besar";
   }
 
+  // Stok: bilangan bulat 0 atau lebih (0 berarti stok habis dan tetap diperbolehkan).
+  const stokBersih = String(stok ?? "").trim();
+  let jumlah = NaN;
+  if (stokBersih === "") {
+    galat.stok = "Stok wajib diisi";
+  } else if (!/^\d+$/.test(stokBersih)) {
+    galat.stok = "Stok harus berupa angka bulat 0 atau lebih";
+  } else {
+    jumlah = Number(stokBersih);
+    if (jumlah > BATAS_STOK) galat.stok = "Stok terlalu besar";
+  }
+
   if (!KATEGORI.includes(kategori)) {
     galat.kategori = "Pilih kategori produk";
   }
@@ -40,6 +53,6 @@ export function validasiProduk({ nama, harga, kategori, gambar = "" }) {
   return {
     valid: Object.keys(galat).length === 0,
     galat,
-    data: { nama: namaBersih, harga: angka, kategori, gambar },
+    data: { nama: namaBersih, harga: angka, stok: jumlah, kategori, gambar },
   };
 }

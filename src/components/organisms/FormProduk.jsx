@@ -12,9 +12,10 @@ const BATAS_BERKAS = 5 * 1024 * 1024; // 5 MB
 
 // Organism: form nama + harga. Dipakai untuk tambah (awal kosong) dan edit (awal berisi produk).
 // Nilai isian disimpan sebagai teks; angka baru dibentuk setelah lolos validasi.
-function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gambar: "" }, labelSimpan, onSimpan, onBatal }) {
+function FormProduk({ awal = { nama: "", harga: "", stok: "", kategori: KATEGORI[0], gambar: "" }, labelSimpan, onSimpan, onBatal }) {
   const [nama, setNama] = useState(awal.nama);
   const [harga, setHarga] = useState(String(awal.harga));
+  const [stok, setStok] = useState(String(awal.stok ?? ""));
   const [kategori, setKategori] = useState(awal.kategori);
   const [gambar, setGambar] = useState(awal.gambar ?? "");
   const [galat, setGalat] = useState({});
@@ -40,7 +41,7 @@ function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gamba
 
   function kirim(e) {
     e.preventDefault();
-    const hasil = validasiProduk({ nama, harga, kategori, gambar });
+    const hasil = validasiProduk({ nama, harga, stok, kategori, gambar });
     setGalat(hasil.galat);
     if (!hasil.valid) return;
     onSimpan(hasil.data);
@@ -65,6 +66,16 @@ function FormProduk({ awal = { nama: "", harga: "", kategori: KATEGORI[0], gamba
         placeholder="Contoh: 5000"
         petunjuk="Harga harus lebih dari 0"
         galat={galat.harga}
+        inputMode="numeric"
+      />
+      <KolomIsian
+        label="Stok (unit)"
+        name="stok"
+        nilai={stok}
+        onUbah={setStok}
+        placeholder="Contoh: 40"
+        petunjuk="Isi 0 bila stok habis"
+        galat={galat.stok}
         inputMode="numeric"
       />
       <KolomPilihan

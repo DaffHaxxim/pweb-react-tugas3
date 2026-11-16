@@ -1,7 +1,7 @@
 // Data awal produk (harga hanya contoh; foto dan lisensinya ada di KREDIT-GAMBAR.md).
 // ID 1 sampai 5 adalah produk inti tugas; ID 6 dan seterusnya adalah katalog
-// tambahan bertema kehidupan sekolah. `stok` adalah jumlah unit tersedia. `gambar` bersifat opsional: produk tanpa gambar
-// tampil dengan gambar pengganti.
+// tambahan bertema kehidupan sekolah. `stok` adalah jumlah unit tersedia. `gambar` bersifat
+// opsional: produk tanpa gambar tampil dengan gambar pengganti.
 export const produkAwal = [
   // --- Inti Tugas ---
   { id: 1, nama: "Pulpen", harga: 5000, stok: 120, kategori: "Alat Tulis", gambar: "/images/produk/01-pulpen.webp" },
