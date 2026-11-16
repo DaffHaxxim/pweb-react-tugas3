@@ -1,9 +1,11 @@
 // Penyimpanan daftar produk di localStorage browser.
-const KUNCI = "manajemen-produk:v1";
+// Versi data ada pada nama kunci: v2 menambahkan field `stok`, v1 (tanpa stok) dimigrasikan saat dimuat.
+const KUNCI = "manajemen-produk:v2";
+const KUNCI_LAMA = "manajemen-produk:v1";
 
 // Pemeriksaan bentuk minimal: data dari localStorage tidak boleh dipercaya begitu saja karena
 // bisa rusak, berasal dari versi lama, atau diubah manual lewat DevTools.
-function adalahProduk(p) {
+function bentukDasar(p) {
   return (
     p !== null &&
     typeof p === "object" &&
@@ -14,13 +16,32 @@ function adalahProduk(p) {
   );
 }
 
+function adalahProduk(p) {
+  return bentukDasar(p) && Number.isInteger(p.stok) && p.stok >= 0;
+}
+
+// Data v1 tidak punya stok. Produk bawaan (id dan nama sama) mendapat stok awalnya; produk tambahan sendiri mendapat 0.
+function migrasiDariV1(daftar, awal) {
+  return daftar.map((p) => ({
+    ...p,
+    stok: awal.find((a) => a.id === p.id && a.nama === p.nama)?.stok ?? 0,
+  }));
+}
+
+function bacaJson(kunci) {
+  const mentah = localStorage.getItem(kunci);
+  return mentah === null ? null : JSON.parse(mentah);
+}
+
 // Mengembalikan data tersimpan bila utuh; bila kosong, rusak, atau bentuknya salah, kembali ke `awal`.
 export function muatProduk(awal) {
   try {
-    const mentah = localStorage.getItem(KUNCI);
-    if (mentah === null) return awal;
-    const data = JSON.parse(mentah);
-    return Array.isArray(data) && data.every(adalahProduk) ? data : awal;
+    const data = bacaJson(KUNCI);
+    if (data !== null) return Array.isArray(data) && data.every(adalahProduk) ? data : awal;
+
+    const lama = bacaJson(KUNCI_LAMA);
+    if (Array.isArray(lama) && lama.every(bentukDasar)) return migrasiDariV1(lama, awal);
+    return awal;
   } catch {
     return awal;
   }
