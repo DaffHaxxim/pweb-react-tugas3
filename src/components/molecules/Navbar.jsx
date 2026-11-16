@@ -22,6 +22,9 @@ function Navbar() {
           <NavLink to="/products" className={kelas}>
             Produk
           </NavLink>
+          <NavLink to="/settings" className={kelas}>
+            Pengaturan
+          </NavLink>
         </div>
       </nav>
     </header>
