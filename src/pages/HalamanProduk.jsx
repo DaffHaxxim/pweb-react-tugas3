@@ -14,7 +14,7 @@ import Tombol from "../components/atoms/Tombol.jsx";
 
 // Page untuk rute /products. Daftar produk dan fungsi ubah datanya datang dari App lewat props
 // (state bersama); di sini hanya tersisa state tampilan sementara: pencarian, kategori, urutan, pop-up.
-function HalamanProduk({ daftarProduk, onTambah, onUbah, onHapus, onReset }) {
+function HalamanProduk({ daftarProduk, modeTampilan = "grid", onTambah, onUbah, onHapus, onReset }) {
   const [kataKunci, setKataKunci] = useState("");
   const [kategoriAktif, setKategoriAktif] = useState(SEMUA_KATEGORI);
   const [urutan, setUrutan] = useState("id");
@@ -76,6 +76,7 @@ function HalamanProduk({ daftarProduk, onTambah, onUbah, onHapus, onReset }) {
         ) : (
           <GridProduk
             daftar={tampil}
+            mode={modeTampilan}
             onEdit={(produk) => setModal({ jenis: "edit", produk })}
             onHapus={(produk) => setModal({ jenis: "hapus", produk })}
           />
