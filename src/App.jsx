@@ -4,6 +4,7 @@ import { produkAwal } from "./data/produk.js";
 import { muatProduk, simpanProduk } from "./utils/penyimpanan.js";
 import AppLayout from "./layouts/AppLayout.jsx";
 import HalamanProduk from "./pages/HalamanProduk.jsx";
+import HalamanDetailProduk from "./pages/HalamanDetailProduk.jsx";
 import HalamanTidakDitemukan from "./pages/HalamanTidakDitemukan.jsx";
 import Toast from "./components/organisms/Toast.jsx";
 
@@ -69,6 +70,7 @@ function App() {
               />
             }
           />
+          <Route path="products/:id" element={<HalamanDetailProduk daftarProduk={daftarProduk} />} />
           <Route path="*" element={<HalamanTidakDitemukan />} />
         </Route>
       </Routes>
