@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { produkAwal } from "../data/produk.js";
-import { muatProduk, simpanProduk } from "../utils/penyimpanan.js";
+import { useState } from "react";
 import { saringProduk } from "../utils/saring.js";
 import { urutkanProduk } from "../utils/urut.js";
 import { SEMUA_KATEGORI } from "../data/kategori.js";
@@ -12,20 +10,15 @@ import Modal, { AksiModal } from "../components/organisms/Modal.jsx";
 import FormProduk from "../components/organisms/FormProduk.jsx";
 import DialogHapus from "../components/organisms/DialogHapus.jsx";
 import KeadaanKosong from "../components/organisms/KeadaanKosong.jsx";
-import Toast from "../components/organisms/Toast.jsx";
 import Tombol from "../components/atoms/Tombol.jsx";
 
-// Page: template + konten nyata. State halaman dipegang di sini lalu dibagikan lewat props.
-function HalamanProduk() {
-  // Fungsi awal dijalankan sekali: data dibaca dari localStorage, atau memakai data awal.
-  const [daftarProduk, setDaftarProduk] = useState(() => muatProduk(produkAwal));
+// Page untuk rute /products. Daftar produk dan fungsi ubah datanya datang dari App lewat props
+// (state bersama); di sini hanya tersisa state tampilan sementara: pencarian, kategori, urutan, pop-up.
+function HalamanProduk({ daftarProduk, onTambah, onUbah, onHapus, onReset }) {
   const [kataKunci, setKataKunci] = useState("");
   const [kategoriAktif, setKategoriAktif] = useState(SEMUA_KATEGORI);
   const [urutan, setUrutan] = useState("id");
-  const [simpanGagal, setSimpanGagal] = useState(false);
-  // Pemberitahuan singkat: null atau { pesan, id }. `id` baru memicu timer baru walau pesannya sama.
-  const [toast, setToast] = useState(null);
-  // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus", produk? }.
+  // Pop-up yang terbuka: null, atau { jenis: "tambah" | "edit" | "hapus" | "reset", produk? }.
   const [modal, setModal] = useState(null);
 
   const tampil = urutkanProduk(
@@ -33,40 +26,21 @@ function HalamanProduk() {
     urutan
   );
   const tutupModal = () => setModal(null);
-  const tampilkanToast = (pesan) => setToast({ pesan, id: Date.now() });
   const adaSaringan = kataKunci.trim() !== "" || kategoriAktif !== SEMUA_KATEGORI;
 
-  // Setiap daftar berubah, simpan ke localStorage.
-  useEffect(() => {
-    setSimpanGagal(!simpanProduk(daftarProduk));
-  }, [daftarProduk]);
-
-  // Pemberitahuan hilang sendiri setelah 3 detik; timer lama dibersihkan bila ada pesan baru.
-  useEffect(() => {
-    if (!toast) return;
-    const timer = setTimeout(() => setToast(null), 3000);
-    return () => clearTimeout(timer);
-  }, [toast]);
-
   function tambahProduk(data) {
-    const idBaru = daftarProduk.reduce((maks, p) => Math.max(maks, p.id), 0) + 1;
-    setDaftarProduk([...daftarProduk, { id: idBaru, ...data }]);
+    onTambah(data);
     tutupModal();
-    tampilkanToast(`"${data.nama}" ditambahkan`);
   }
 
   function ubahProduk(data) {
-    setDaftarProduk(
-      daftarProduk.map((p) => (p.id === modal.produk.id ? { ...p, ...data } : p))
-    );
+    onUbah(modal.produk.id, data);
     tutupModal();
-    tampilkanToast(`"${data.nama}" diperbarui`);
   }
 
   function hapusProduk() {
-    setDaftarProduk(daftarProduk.filter((p) => p.id !== modal.produk.id));
+    onHapus(modal.produk.id);
     tutupModal();
-    tampilkanToast(`"${modal.produk.nama}" dihapus`);
   }
 
   function hapusSaringan() {
@@ -75,21 +49,15 @@ function HalamanProduk() {
   }
 
   function resetData() {
-    setDaftarProduk(produkAwal);
+    onReset();
     hapusSaringan();
     setUrutan("id");
     tutupModal();
-    tampilkanToast("Data dikembalikan ke data awal");
   }
 
   return (
     <>
       <section>
-        {simpanGagal && (
-          <p role="alert" className="mb-4 rounded-lg border border-[#f4b8b2] bg-bahaya-muda px-3.5 py-2.5 text-[0.9rem] font-semibold text-bahaya">
-            Perubahan belum tersimpan permanen karena penyimpanan browser penuh atau tidak tersedia.
-          </p>
-        )}
         <HeaderHalaman onTambah={() => setModal({ jenis: "tambah" })} />
         <BarPencarian
           kataKunci={kataKunci}
@@ -122,8 +90,8 @@ function HalamanProduk() {
         </div>
       </section>
 
-      {/* Pop-up dan toast adalah lapisan melayang (position: fixed), jadi diletakkan di luar
-          <main>. Fragment <>...</> memungkinkan beberapa elemen sejajar tanpa elemen pembungkus. */}
+      {/* Pop-up adalah lapisan melayang (position: fixed), jadi diletakkan di luar <section>.
+          Fragment <>...</> memungkinkan beberapa elemen sejajar tanpa elemen pembungkus. */}
       {modal?.jenis === "tambah" && (
         <Modal
           judul="Tambah Produk"
@@ -177,8 +145,6 @@ function HalamanProduk() {
           onBatal={tutupModal}
         />
       )}
-
-      {toast && <Toast pesan={toast.pesan} />}
     </>
   );
 }
