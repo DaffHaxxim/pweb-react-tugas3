@@ -10,7 +10,7 @@ const KARTU = {
   grid: "flex flex-col gap-1.5 p-4 max-[560px]:gap-1 max-[560px]:p-2.5",
   list: "flex items-center gap-4 p-3 max-[640px]:flex-col max-[640px]:items-stretch max-[640px]:gap-2",
 };
-const GAMBAR = { grid: "", list: "w-32 flex-none max-[640px]:w-full" };
+const GAMBAR = { grid: "", list: "w-32 flex-none max-[640px]:w-full max-[640px]:max-w-[220px]" };
 const ISI = { grid: "contents", list: "flex min-w-0 flex-1 flex-col gap-1" };
 const AKSI = {
   grid: "mt-auto flex gap-2 max-[560px]:flex-col",

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { produkAwal } from "./data/produk.js";
-import { muatProduk, simpanProduk } from "./utils/penyimpanan.js";
+import { muatProduk, simpanProduk, muatTampilan, simpanTampilan } from "./utils/penyimpanan.js";
 import AppLayout from "./layouts/AppLayout.jsx";
 import HalamanProduk from "./pages/HalamanProduk.jsx";
 import HalamanDetailProduk from "./pages/HalamanDetailProduk.jsx";
+import HalamanPengaturan from "./pages/HalamanPengaturan.jsx";
 import HalamanTidakDitemukan from "./pages/HalamanTidakDitemukan.jsx";
 import Toast from "./components/organisms/Toast.jsx";
 
@@ -13,6 +14,8 @@ import Toast from "./components/organisms/Toast.jsx";
 function App() {
   // Fungsi awal dijalankan sekali: data dibaca dari localStorage, atau memakai data awal.
   const [daftarProduk, setDaftarProduk] = useState(() => muatProduk(produkAwal));
+  // Tampilan daftar produk ("grid" atau "list"), diatur di halaman Pengaturan dan dipakai halaman Produk.
+  const [modeTampilan, setModeTampilan] = useState(muatTampilan);
   const [simpanGagal, setSimpanGagal] = useState(false);
   // Pemberitahuan singkat: null atau { pesan, id }. Objek baru setiap kali memulai timer baru.
   const [toast, setToast] = useState(null);
@@ -23,6 +26,10 @@ function App() {
   useEffect(() => {
     setSimpanGagal(!simpanProduk(daftarProduk));
   }, [daftarProduk]);
+
+  useEffect(() => {
+    simpanTampilan(modeTampilan);
+  }, [modeTampilan]);
 
   // Pemberitahuan hilang sendiri setelah 3 detik; timer lama dibersihkan bila ada pesan baru.
   useEffect(() => {
@@ -63,6 +70,7 @@ function App() {
             element={
               <HalamanProduk
                 daftarProduk={daftarProduk}
+                modeTampilan={modeTampilan}
                 onTambah={tambahProduk}
                 onUbah={ubahProduk}
                 onHapus={hapusProduk}
@@ -71,6 +79,7 @@ function App() {
             }
           />
           <Route path="products/:id" element={<HalamanDetailProduk daftarProduk={daftarProduk} />} />
+          <Route path="settings" element={<HalamanPengaturan modeTampilan={modeTampilan} onUbahMode={setModeTampilan} />} />
           <Route path="*" element={<HalamanTidakDitemukan />} />
         </Route>
       </Routes>

@@ -57,3 +57,22 @@ export function simpanProduk(daftar) {
     return false;
   }
 }
+
+// Pilihan tampilan daftar produk ("grid" atau "list") disimpan terpisah dari data produk.
+const KUNCI_TAMPILAN = "manajemen-produk:tampilan";
+
+export function muatTampilan() {
+  try {
+    return localStorage.getItem(KUNCI_TAMPILAN) === "list" ? "list" : "grid";
+  } catch {
+    return "grid";
+  }
+}
+
+export function simpanTampilan(mode) {
+  try {
+    localStorage.setItem(KUNCI_TAMPILAN, mode);
+  } catch {
+    // Gagal menyimpan pilihan tampilan tidak mengganggu aplikasi; pilihan tetap berlaku selama halaman terbuka.
+  }
+}
