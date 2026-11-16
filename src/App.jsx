@@ -79,7 +79,7 @@ function App() {
               />
             }
           />
-          <Route path="products/:id" element={<HalamanDetailProduk daftarProduk={daftarProduk} />} />
+          <Route path="products/:id" element={<HalamanDetailProduk daftarProduk={daftarProduk} onUbah={ubahProduk} onHapus={hapusProduk} />} />
           <Route path="settings" element={<HalamanPengaturan modeTampilan={modeTampilan} onUbahMode={setModeTampilan} />} />
           <Route path="*" element={<HalamanTidakDitemukan />} />
         </Route>
