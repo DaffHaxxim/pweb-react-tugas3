@@ -6,7 +6,7 @@ Aplikasi web multi-halaman untuk mengelola daftar produk dan persediaannya, dibu
 |---|---|
 | Mata kuliah | Pemrograman Web |
 | NRP | 5027251091 |
-| Tugas | Tugas 3, Fundamental React dengan React Router dan Tailwind CSS |
+| Tugas | Tugas 4, React Router dan Tailwind CSS |
 | Teknologi | React 19 (JavaScript/JSX), React Router 7, Tailwind CSS 4, Vite |
 
 ## Cara menjalankan
